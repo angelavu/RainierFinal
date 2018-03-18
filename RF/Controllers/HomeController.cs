@@ -135,7 +135,7 @@ namespace hw7.Controllers
             var query7 = (from IGN_Table in model.IGN_Table
                           join VGSales_Table in model.VGSales_Table on IGN_Table.Title equals VGSales_Table.Title
                           join Steamspy_Table in model.Steamspy_Table on VGSales_Table.Title equals Steamspy_Table.Title
-                          where Steamspy_Table.Month == 5
+                          where Steamspy_Table.Month == 3
                           select IGN_Table).Take(10);
 
             List<IGN_Table> IGNList = query7.ToList();
