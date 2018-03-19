@@ -17,7 +17,7 @@ namespace hw7.Controllers
         {
 
             RainerEntities model = new RainerEntities();
-            ViewBag.Message = "Query One: How many of the top 10(score) titles are PC games?";
+            ViewBag.Message = "Query One: What are the top 10 PC Games by score?";
             //SELECT TOP 10 IGN_Table.Score, NA_Sales, EU_Sales, Japan_Sales, Other_Sales, Global_Sales FROM IGN_Table JOIN VGSales_Table ON IGN_Table.Title = VGSales_Table.Title WHERE VGSales_Table.Platform = “PC”;
 
             //var query1 = (from IGN_Table in model.IGN_Table
