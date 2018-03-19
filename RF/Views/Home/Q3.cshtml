@@ -13,16 +13,24 @@
 
 <table class="table">
     <tr>
-        <th>Title</th>
         <th>Publisher</th>
-        <th>Year</th>
+        <th>Title</th>
+        <th>Global Sales</th>
+        <th>NA Sales</th>
+        <th>EU Sales</th>
+        <th>Other Sales</th>
+        <th>JP Sales</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.Title)</td>
             <td>@Html.DisplayFor(modelItem => item.Publisher)</td>
-            <td>@Html.DisplayFor(modelItem => item.Year)</td>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.Global_Sales)</td>
+            <td>@Html.DisplayFor(modelItem => item.NA_Sales)</td>
+            <td>@Html.DisplayFor(modelItem => item.EU_Sales)</td>
+            <td>@Html.DisplayFor(modelItem => item.Other_Sales)</td>
+            <td>@Html.DisplayFor(modelItem => item.JP_Sales)</td>
 
         </tr>
     }

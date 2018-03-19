@@ -1,6 +1,6 @@
 ﻿@* The @model directive provides a cleaner and more concise way to reference
     strongly-typed models from view files.*@
-@model IEnumerable<hw7.IGN_Table>
+@model IEnumerable<hw7.VGSales_Table>
 
 @{
     ViewBag.Title = "Q2";
@@ -13,16 +13,16 @@
 
 <table class="table">
     <tr>
-        <th>Title</th>
         <th>Platform</th>
-        <th>Score</th>
+        <th>Title</th>
+        <th>Global Sales</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.Title)</td>
             <td>@Html.DisplayFor(modelItem => item.Platform)</td>
-            <td>@Html.DisplayFor(modelItem => item.Score)</td>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.Global_Sales)</td>
 
         </tr>
     }

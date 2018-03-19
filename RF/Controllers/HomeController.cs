@@ -20,12 +20,38 @@ namespace hw7.Controllers
             ViewBag.Message = "Query One: How many of the top 10(score) titles are PC games?";
             //SELECT TOP 10 IGN_Table.Score, NA_Sales, EU_Sales, Japan_Sales, Other_Sales, Global_Sales FROM IGN_Table JOIN VGSales_Table ON IGN_Table.Title = VGSales_Table.Title WHERE VGSales_Table.Platform = “PC”;
 
+            //var query1 = (from IGN_Table in model.IGN_Table
+            //              join VGSales_Table in model.VGSales_Table
+            //              on IGN_Table.Title equals VGSales_Table.Title
+            //              where IGN_Table.Platform == "PC"
+            //              orderby IGN_Table.Score descending
+            //              select IGN_Table).Take(10);
+
             var query1 = (from IGN_Table in model.IGN_Table
-                          join VGSales_Table in model.VGSales_Table
-                          on IGN_Table.Title equals VGSales_Table.Title
                           where IGN_Table.Platform == "PC"
                           orderby IGN_Table.Score descending
-                          select IGN_Table).Take(10);
+                          select IGN_Table
+                          ).Take(10);
+
+            //var query2 = (from IGN_Table in model.IGN_Table
+            //              orderby IGN_Table.Score descending
+            //              group IGN_Table by IGN_Table.Score into IGN_Scores
+            //              select IGN_Table
+            //              );
+
+            //var query2 = (from IGN_Table in model.IGN_Table
+            //             group IGN_Table by IGN_Table.Score into IGN_Scores
+            //             orderby IGN_Scores.Key
+            //             select IGN_Scores);
+
+            //WITH Top10Games_CTE(Title, Platform, Score)
+            //    AS(
+            //    SELECT TOP 10 Title, Platform, Score
+            //    FROM IGN_Table)
+            //    Select COUNT(Title) AS 'Number of Top 10 PC Games'
+            //    FROM Top10Games_CTE
+            //    WHERE Platform = 'PC'
+
 
             List<IGN_Table> IGNList = query1.ToList();
 
@@ -38,17 +64,14 @@ namespace hw7.Controllers
 
             RainerEntities model = new RainerEntities();
             ViewBag.Message = "Query Two: What are the platform(s) for top 5 selling games Globally?";
-            //SELECT TOP 5 IGN_Table.Platform, NA_Sales, EU_Sales, Japan_Sales, Other_Sales, Global_Sales FROM VGSales_Table JOIN IGN_Table ON.VGSales_TableTitle = IGN_Table.Title JOIN SteamSpy_Table ON IGN_Table.title = SteamSpy_Table.Title;
 
-            var query2 = (from IGN_Table in model.IGN_Table
-                          join VGSales_Table in model.VGSales_Table on IGN_Table.Title equals VGSales_Table.Title
-                          join Steamspy_Table in model.Steamspy_Table on VGSales_Table.Title equals Steamspy_Table.Title
+            var query2 = (from VGSales_Table in model.VGSales_Table
                           orderby VGSales_Table.Global_Sales descending
-                          select IGN_Table).Take(5);
+                          select VGSales_Table).Take(5);
 
-            List<IGN_Table> IGNList = query2.ToList();
+            List<VGSales_Table> VGList = query2.ToList();
 
-            return View(IGNList);
+            return View(VGList);
         }
 
 
@@ -56,13 +79,12 @@ namespace hw7.Controllers
         {
 
             RainerEntities model = new RainerEntities();
-            ViewBag.Message = "Query Three: What are the top selling game publishers Globally?";
-            //SELECT TOP 3 Publisher, Publisher(s), NA_Sales FROM VGSales_Table JOIN SteamSpy_Table ON VGSales_Table.Title = SteamSpy_Table.Title;
+            ViewBag.Message = "Query Three: What are the top 5 selling game publishers globally?";
 
             var query3 = (from VGSales_Table in model.VGSales_Table
-                          join Steamspy_Table in model.Steamspy_Table on VGSales_Table.Title equals Steamspy_Table.Title
-                          orderby VGSales_Table.NA_Sales descending
-                          select VGSales_Table).Take(10);
+                         join Steamspy_Table in model.Steamspy_Table on VGSales_Table.GameID equals Steamspy_Table.GameID
+                         orderby VGSales_Table.Global_Sales descending, VGSales_Table.NA_Sales descending, VGSales_Table.EU_Sales descending
+                         select VGSales_Table).Take(5);
 
             List<VGSales_Table> VGList = query3.ToList();
 
@@ -139,6 +161,17 @@ namespace hw7.Controllers
                           select IGN_Table).Take(10);
 
             List<IGN_Table> IGNList = query7.ToList();
+
+            //var query7 = (from VGSales_Table in model.VGSales_Table
+            //              join IGN_Table in model.IGN_Table on VGSales_Table.GameID equals IGN_Table.GameID
+            //              join Steamspy_Table in model.Steamspy_Table on IGN_Table.GameID equals Steamspy_Table.GameID // on IGN_Table.GameID equals Steamspy_Table.GameID
+            //              where Steamspy_Table.Month == 3
+            //              //group new { VGSales_Table, IGN_Table, Steamspy_Table } by new { Steamspy_Table.GameID, Steamspy_Table.Title, Steamspy_Table.Platform, Steamspy_Table.Month, Steamspy_Table.Year } into Games_Group
+            //              //select new { Games_Group.Key.GameID, Games_Group.Key.Title, Games_Group.Key.Platform, Games_Group.Key.Month, Games_Group.Key.Year }).Take(10);
+            //              select VGSales_Table).Take(10);
+
+            //List<VGSales_Table> VGList = query7.ToList();
+
 
             return View(IGNList);
         }
