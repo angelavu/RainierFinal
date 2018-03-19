@@ -155,7 +155,7 @@ namespace hw7.Controllers
             //SELECT IGN_Table.Title, Month From IGN_Table JOIN SteamSpy_Table ON IGN_Table.Title = SteamSpy_Table.Title JOIN VGsales_Table ON SteamSpy_Table.Title = VGSales_Table.Title WHERE Month = “5” AND IGN.Title = SteamSpy_Table.Title AND SteamSpy_Table.Title = VGSales_Table.Title;
 
             var query7 = (from IGN_Table in model.IGN_Table
-                          join VGSales_Table in model.VGSales_Table on IGN_Table.Title equals VGSales_Table.Title
+                          join VGSales_Table in model.VGSales_Table on IGN_Table.GameID equals VGSales_Table.GameID
                           join Steamspy_Table in model.Steamspy_Table on VGSales_Table.Title equals Steamspy_Table.Title
                           where Steamspy_Table.Month == 3
                           select IGN_Table).Take(10);
