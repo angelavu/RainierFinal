@@ -15,16 +15,27 @@
     <tr>
         <th>Title</th>
         <th>Platform</th>
-        <th>Average Score Rank</th>
+        <th>NA Sales</th>
+        <th>IGN Score</th>
+        <th>Steam Metacritic Score</th>
+        <th>Steam User Score</th>
+        <th>Steam Average Score</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Title)</td>
             <td>@Html.DisplayFor(modelItem => item.Platform)</td>
+            <td>@Html.DisplayFor(modelItem => item.VGSales_Table.NA_Sales)</td>
+            <td>IGN</td> <!-- dummy text-->
+            <!--<td>@Html.DisplayFor(modelItem => item.VGSales_Table.IGN_Table)</td>--> <!-- doesnt work-->
+            <td>@Html.DisplayFor(modelItem => item.Metacritic_Score)</td>
+            <td>@Html.DisplayFor(modelItem => item.User_Score)</td>
             <td>@Html.DisplayFor(modelItem => item.Average_Score_Rank)</td>
 
         </tr>
     }
+    <tr>
+        <th>* Sales are in the millions</th>
+    </tr>
 </table>
-

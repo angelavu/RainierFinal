@@ -95,15 +95,28 @@ namespace hw7.Controllers
         {
 
             RainerEntities model = new RainerEntities();
-            ViewBag.Message = "Query 4: Of Top 10 games in NA What were the different ratings?";
+            ViewBag.Message = "Query 4: Of Top 10 PC games in NA what were the different ratings?";
             //SELECT TOP 10 VGSales_Table.Title, NA_Sales, SteamSpy_Table.Score, IGN_Table.Score from VGSales_Table JOIN SteamSpy_Table ON VGSales_Table.Title = SteamSpy_Table.Title JOIN IGN_Table ON SteamSpy_Table.Title = IGN_Table.Title;
 
-            var query4 = (from IGN_Table in model.IGN_Table
-                          join VGSales_Table in model.VGSales_Table on IGN_Table.Title equals VGSales_Table.Title
-                          join Steamspy_Table in model.Steamspy_Table on VGSales_Table.Title equals Steamspy_Table.Title
-                          orderby Steamspy_Table.Average_Score_Rank descending
-                          select Steamspy_Table).Take(10);
+            //SELECT TOP 5
+            //VGSales_Table.Title, NA_Sales, IGN_Table.Score AS[IGN Score],
+            // Steamspy_Table.[Metacritic Score],
+            // SteamSpy_Table.[User Score] AS[Steam User Score],
+            // Steamspy_Table.[Average Score Rank]
+            //        AS[Steam Average Score]
+            //                  FROM VGSales_Table 
+            //                  JOIN SteamSpy_Table ON VGSales_Table.GameID = SteamSpy_Table.GameID
+            //                  JOIN IGN_Table ON VGSales_Table.GameID = IGN_Table.GameID
+            //ORDER BY NA_Sales DESC;
 
+            //TODO: this sorta works, can't get IGN SCORE though
+            var query4 = (from Steamspy_Table in model.Steamspy_Table
+                          join VGSales_Table in model.VGSales_Table on Steamspy_Table.GameID equals VGSales_Table.GameID
+                          join IGN_Table in model.IGN_Table on Steamspy_Table.GameID equals IGN_Table.GameID
+                          orderby VGSales_Table.NA_Sales descending, IGN_Table.Score descending
+                          select Steamspy_Table
+                          ).Take(5);
+      
             List<Steamspy_Table> SteamList = query4.ToList();
 
             return View(SteamList);
