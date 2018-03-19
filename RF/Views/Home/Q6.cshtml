@@ -3,7 +3,7 @@
 @model IEnumerable<hw7.VGSales_Table>
 
 @{
-    ViewBag.Title = "Q4";
+    ViewBag.Title = "Q6";
 }
 
 @{
@@ -14,17 +14,21 @@
 <table class="table">
     <tr>
         <th>Title</th>
+        <th>Genre</th>
         <th>Platform</th>
-        <th>Golbal Sales</th>
+        <th>GlobalSales</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.Genre)</td>
             <td>@Html.DisplayFor(modelItem => item.Platform)</td>
             <td>@Html.DisplayFor(modelItem => item.Global_Sales)</td>
 
         </tr>
     }
+    <tr>
+        <td><i>* Sales are in the millions</i></td>
+    </tr>
 </table>
-

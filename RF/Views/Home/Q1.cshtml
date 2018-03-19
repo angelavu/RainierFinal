@@ -15,7 +15,7 @@
     <tr>
         <th>Title</th>
         <th>Platform</th>
-        <th>Score</th>
+        <th>IGN Score</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -23,7 +23,6 @@
         <td>@Html.DisplayFor(modelItem => item.Title)</td>
         <td>@Html.DisplayFor(modelItem => item.Platform)</td>
         <td>@Html.DisplayFor(modelItem => item.Score)</td>
-        
     </tr>
     }
 </table>
