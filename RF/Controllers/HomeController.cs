@@ -17,7 +17,7 @@ namespace hw7.Controllers
         {
 
             RainerEntities model = new RainerEntities();
-            ViewBag.Message = "Query One: What are the top 10 PC Games by score?";
+            ViewBag.Message = "Query 1: What are the top 10 PC Games by score?";
             //SELECT TOP 10 IGN_Table.Score, NA_Sales, EU_Sales, Japan_Sales, Other_Sales, Global_Sales FROM IGN_Table JOIN VGSales_Table ON IGN_Table.Title = VGSales_Table.Title WHERE VGSales_Table.Platform = “PC”;
 
             //var query1 = (from IGN_Table in model.IGN_Table
@@ -63,7 +63,7 @@ namespace hw7.Controllers
         {
 
             RainerEntities model = new RainerEntities();
-            ViewBag.Message = "Query Two: What are the platform(s) for top 5 selling games Globally?";
+            ViewBag.Message = "Query 2: What are the platform(s) for top 5 selling games Globally?";
 
             var query2 = (from VGSales_Table in model.VGSales_Table
                           orderby VGSales_Table.Global_Sales descending
@@ -79,7 +79,7 @@ namespace hw7.Controllers
         {
 
             RainerEntities model = new RainerEntities();
-            ViewBag.Message = "Query Three: What are the top 5 selling game publishers globally?";
+            ViewBag.Message = "Query 3: Who are the top 5 selling game publishers and what is the sales everywhere for their number one game?";
 
             var query3 = (from VGSales_Table in model.VGSales_Table
                          join Steamspy_Table in model.Steamspy_Table on VGSales_Table.GameID equals Steamspy_Table.GameID
@@ -113,14 +113,13 @@ namespace hw7.Controllers
         {
 
             RainerEntities model = new RainerEntities();
-            ViewBag.Message = "Query 5: How many of the top 10 (# sold) titles are Valve games?";
+            ViewBag.Message = "Query 5: How many titles are Ubisoft games?";
             //SELECT TOP 10 Title, NA_Sales, EU_Sales, Japan_Sales, Other_Sales, Global_Sales  FROM VGSales_Table JOIN SteamSpy_Table ON VGSales_Table.Title = SteamSpy_Table.Title WHERE Publisher LIKE “Valve”;
 
-            var query5 = (from Steamspy_Table in model.Steamspy_Table
-                          join VGSales_Table in model.VGSales_Table on Steamspy_Table.Title equals VGSales_Table.Title
-                          where VGSales_Table.Publisher.Contains("Valve")
+            var query5 = (from VGSales_Table in model.VGSales_Table
+                          where VGSales_Table.Publisher.Contains("Ubisoft")
                           orderby VGSales_Table.Global_Sales descending
-                          select VGSales_Table).Take(10);
+                          select VGSales_Table).Take(15);
 
             List<VGSales_Table> VGList = query5.ToList();
 
